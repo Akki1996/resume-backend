@@ -6,7 +6,7 @@ const ResumeSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
   address: { type: String },
-  profileImage: { type: String }, // URL or Base64
+  profileImage: { type: String }, 
   summary: { type: String },
 
   education: [
