@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json());
 const PORT =process.env.PORT || 3000;
 
-mongoose.connect("mongodb://localhost:27017/resume").then(()=>console.log("MongoDb connected"))
+mongoose.connect("mongodb+srv://akstrehan:gYFwCSN8YFs7KnOY@resumecluster.gqiok.mongodb.net/").then(()=>console.log("MongoDb connected"))
 .catch(err => console.log(err))
 
 app.use('/api/users', userRoutes);
