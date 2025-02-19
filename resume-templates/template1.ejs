@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; }
+        .resume { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h1, h2 { color: #2c3e50; }
+        ul { list-style: none; padding: 0; }
+        .section { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="resume">
+        <h1><%= user.personalDetails.name %></h1>
+        <p>Email: <%= user.personalDetails.email %></p>
+        <p>Phone: <%= user.personalDetails.phone %></p>
+        <p>Address: <%= user.personalDetails.address %></p>
+
+        <div class="section">
+            <h2>Skills</h2>
+            <ul>
+                <% user.skills.skills.forEach(skill => { %>
+                    <li><%= skill %></li>
+                <% }) %>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Certifications</h2>
+            <ul>
+                <% user.skills.certifications.forEach(cert => { %>
+                    <li><%= cert %></li>
+                <% }) %>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Professional Experience</h2>
+            <% user.professionalExperience.forEach(exp => { %>
+                <h3><%= exp.company %> - <%= exp.occupation %></h3>
+                <% exp.projects.forEach(proj => { %>
+                    <p><strong><%= proj.name %>:</strong> <%= proj.description %></p>
+                <% }) %>
+            <% }) %>
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+            <% user.education.forEach(edu => { %>
+                <p><strong><%= edu.institute %></strong> - <%= edu.degree %> in <%= edu.fieldOfStudy %> (CGPA: <%= edu.cgpa %>)</p>
+            <% }) %>
+        </div>
+
+        <div class="section">
+            <h2>Achievements</h2>
+            <p><%= user.skills.achievements %></p>
+        </div>
+    </div>
+</body>
+</html>
