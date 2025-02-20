@@ -17,11 +17,11 @@ const saveResumeData = async (req, res) => {
   };
   
   const sendResumeTemplates = async (req, res) => {
-      try {
-          const templatesDir = path.join(__dirname, "../resume-templates");
-          // const { id } = req.query;
-          const id ='67b62b39ea7c5c56a196c946'
-          let resumeData = {
+    try {
+        const templatesDir = path.join(__dirname, "../resume-templates");
+        // const { id } = req.query;
+        const id = '67b62b39ea7c5c56a196c946';
+        let resumeData = {
             personalDetails: {
                 name: "",
                 email: "",
@@ -38,29 +38,35 @@ const saveResumeData = async (req, res) => {
         };
 
         if (id) {
-           const fetchedData = await Resume.findOne({ id });
-          if (fetchedData) {
-              resumeData = fetchedData; 
-          }
-      }
+            const fetchedData = await Resume.findOne({ id });
+            if (fetchedData) {
+                resumeData = fetchedData;
+            }
+        }
 
- 
-      const renderedTemplate1 = await ejs.renderFile(path.join(templatesDir, "template1.ejs"), { user: resumeData });
-      const renderedTemplate2 = await ejs.renderFile(path.join(templatesDir, "template2.ejs"), { user: resumeData });
+        const templates = [
+            { templateName: "Template 1", id: 1, file: "template1.ejs" },
+            { templateName: "Template 2", id: 2, file: "template2.ejs" }
+        ];
 
+        const renderedTemplates = await Promise.all(
+            templates.map(async (template) => ({
+                templateName: template.templateName,
+                id: template.id,
+                content: await ejs.renderFile(path.join(templatesDir, template.file), { user: resumeData })
+            }))
+        );
 
-      res.json({
-          success: true,
-          templates: {
-              template1: renderedTemplate1,
-              template2: renderedTemplate2
-          }
-      });
-      } catch (error) {
-          console.error("Error rendering templates:", error);
-          res.status(500).json({ error: "Internal server error" });
-      }
-  };
+        res.json({
+            success: true,
+            templates: renderedTemplates
+        });
+    } catch (error) {
+        console.error("Error rendering templates:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
 
 
   module.exports ={saveResumeData,sendResumeTemplates}
