@@ -38,7 +38,7 @@ const saveResumeData = async (req, res) => {
         };
 
         if (id) {
-            const fetchedData = await Resume.findOne({ id });
+            const fetchedData = await Resume.findOne({ _id:id });
             if (fetchedData) {
                 resumeData = fetchedData;
             }

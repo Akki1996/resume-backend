@@ -5,59 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Resume</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        /* A4 Size Container */
-        .resume {
-            width: 210mm;
-            min-height: 297mm;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20mm;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+       
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; margin: 0; padding: 0; }
+        .resume { width: 100%; height: 100%; background: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h1, h2 { color: #2c3e50; }
+        ul { list-style: none; padding: 0; }
+        .section { margin-bottom: 20px; }
 
         /* Header Section */
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
             border-bottom: 2px solid #000000;
-            padding-bottom: 10px;
+            padding-bottom: 0.5rem;
         }
 
         .header h1 {
-            font-size: 28px;
+            font-size: 2rem; /* Use relative units */
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
         }
 
         .header p {
-            font-size: 14px;
+            font-size: 1rem; /* Use relative units */
             color: #555;
         }
 
-        /* Section Styling */
-        .section {
-            margin-bottom: 20px;
-        }
 
         .section h2 {
-            font-size: 20px;
+            font-size: 1.5rem; /* Use relative units */
             font-weight: bold;
             border-bottom: 1px solid #000000;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .section ul {
@@ -66,7 +46,7 @@
         }
 
         .section ul li {
-            margin-bottom: 10px;
+            margin-bottom: 0.5rem;
         }
 
         .section ul li strong {
@@ -75,43 +55,43 @@
 
         /* Professional Experience */
         .experience-item {
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         .experience-item h3 {
-            font-size: 18px;
+            font-size: 1.25rem; /* Use relative units */
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
         }
 
         .experience-item p {
-            font-size: 14px;
+            font-size: 1rem; /* Use relative units */
             color: #555;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
         }
 
         .experience-item ul {
-            margin-left: 20px;
+            margin-left: 1.5rem;
         }
 
         .experience-item ul li {
             list-style-type: disc;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
         }
 
         /* Education */
         .education-item {
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         .education-item h3 {
-            font-size: 18px;
+            font-size: 1.25rem; /* Use relative units */
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
         }
 
         .education-item p {
-            font-size: 14px;
+            font-size: 1rem; /* Use relative units */
             color: #555;
         }
 
@@ -119,14 +99,14 @@
         .skills-list, .certifications-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 0.5rem;
         }
 
         .skills-list li, .certifications-list li {
             background-color: #f0f0f0;
-            padding: 5px 10px;
+            padding: 0.5rem 1rem;
             border-radius: 3px;
-            font-size: 14px;
+            font-size: 1rem; /* Use relative units */
         }
     </style>
 </head>
