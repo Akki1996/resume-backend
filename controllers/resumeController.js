@@ -92,4 +92,4 @@ const sendResumeImages = async (req, res) => {
 
 
 
-  module.exports ={saveResumeData,sendResumeTemplates}
+  module.exports ={saveResumeData,sendResumeTemplates,sendResumeImages}
