@@ -19,8 +19,8 @@ const saveResumeData = async (req, res) => {
   const sendResumeTemplates = async (req, res) => {
     try {
         const templatesDir = path.join(__dirname, "../resume-templates");
-        // const { id } = req.query;
-        const id = '67b62b39ea7c5c56a196c946';
+        const { id } = req.query;
+
         let resumeData = {
             personalDetails: {
                 name: "",
@@ -38,7 +38,7 @@ const saveResumeData = async (req, res) => {
         };
 
         if (id) {
-            const fetchedData = await Resume.findOne({ _id:id });
+            const fetchedData = await Resume.findOne({ _id: id });
             if (fetchedData) {
                 resumeData = fetchedData;
             }
@@ -49,20 +49,43 @@ const saveResumeData = async (req, res) => {
             { templateName: "Template 2", id: 2, file: "template2.ejs" }
         ];
 
-        const renderedTemplates = await Promise.all(
-            templates.map(async (template) => ({
-                templateName: template.templateName,
-                id: template.id,
-                content: await ejs.renderFile(path.join(templatesDir, template.file), { user: resumeData })
-            }))
-        );
+        const requestedTemplate = templates.find(template => template.id === parseInt(id));
+
+        if (!requestedTemplate) {
+            return res.status(404).json({ success: false, message: "Template not found" });
+        }
+
+        const renderedTemplate = {
+            templateName: requestedTemplate.templateName,
+            id: requestedTemplate.id,
+            content: await ejs.renderFile(path.join(templatesDir, requestedTemplate.file), { user: resumeData })
+        };
 
         res.json({
             success: true,
-            templates: renderedTemplates
+            template: renderedTemplate
         });
     } catch (error) {
-        console.error("Error rendering templates:", error);
+        console.error("Error rendering template:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+
+
+const sendResumeImages = async (req, res) => {
+    try {
+        const templates = [
+            { templateName: "Template 1", id: 1, imageUrl: "../images/template1.png" },
+            { templateName: "Template 2", id: 2, imageUrl: "../images/template2.png" }
+        ];
+
+        res.json({
+            success: true,
+            templates: templates
+        });
+    } catch (error) {
+        console.error("Error fetching templates:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 };
