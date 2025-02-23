@@ -75,10 +75,20 @@ const saveResumeData = async (req, res) => {
 
 const sendResumeImages = async (req, res) => {
     try {
+        const baseUrl = `${req.protocol}://${req.get('host')}`
         const templates = [
-            { templateName: "Template 1", id: 1, imageUrl: "../images/template1.png" },
-            { templateName: "Template 2", id: 2, imageUrl: "../images/template2.png" }
+            { 
+                templateName: "Template 1", 
+                id: 1, 
+                imageUrl: `${baseUrl}/images/template1.png` 
+            },
+            { 
+                templateName: "Template 2", 
+                id: 2, 
+                imageUrl: `${baseUrl}/images/template2.png` 
+            }
         ];
+    
 
         res.json({
             success: true,
