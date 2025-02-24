@@ -1,4 +1,5 @@
 const Resume = require("../models/Resume");
+const UserResume = require("../models/UserResumes");
 const ejs = require("ejs");
 const path = require("path");
 
@@ -100,6 +101,29 @@ const sendResumeImages = async (req, res) => {
     }
 };
 
+const saveResumeDataUser = async (req, res) => {
+    try {
+        const { user_id, template } = req.body;
+
+        if (!user_id) {
+            return res.status(400).json({ success: false, message: "User ID is required" });
+        }
+
+        const updatedResume = await UserResume.findOneAndUpdate(
+            { user_id },
+            { $set: { template } },
+            { new: true, upsert: true }
+        );
+
+        res.status(200).json({
+            success: true,
+            message: updatedResume ? "Resume updated successfully!" : "New resume created!",
+            data: updatedResume
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Failed to save resume", error: error.message });
+    }
+};
 
 
-  module.exports ={saveResumeData,sendResumeTemplates,sendResumeImages}
+  module.exports ={saveResumeData,sendResumeTemplates,sendResumeImages,saveResumeDataUser}
