@@ -5,52 +5,20 @@ const path = require("path");
 
 const saveResumeData = async (req, res) => {
     try {
-      const resumeData = req.body;
-  
-      const newResume = new Resume(resumeData);
-  
-      await newResume.save();
-  
-      res.status(201).json({ success: true, message: "Resume saved successfully!", data: newResume });
-    } catch (error) {
-      res.status(500).json({ success: false, message: "Failed to save resume", error: error.message });
-    }
-  };
-  
-  const sendResumeTemplates = async (req, res) => {
-    try {
+        const resumeData = req.body;
+
+
+        const newResume = new Resume(resumeData);
+        await newResume.save();
+
         const templatesDir = path.join(__dirname, "../resume-templates");
-        const { id } = req.query;
-
-        let resumeData = {
-            personalDetails: {
-                name: "",
-                email: "",
-                phone: "",
-                address: ""
-            },
-            education: [],
-            professionalExperience: [],
-            skills: {
-                skills: [],
-                certifications: [],
-                languages: []
-            }
-        };
-
-        if (id) {
-            const fetchedData = await Resume.findOne({ _id: id });
-            if (fetchedData) {
-                resumeData = fetchedData;
-            }
-        }
 
         const templates = [
             { templateName: "Template 1", id: 1, file: "template1.ejs" },
             { templateName: "Template 2", id: 2, file: "template2.ejs" }
         ];
 
-        const requestedTemplate = templates.find(template => template.id === parseInt(id));
+        const requestedTemplate = templates.find(template => template.id === parseInt(resumeData.template_id));
 
         if (!requestedTemplate) {
             return res.status(404).json({ success: false, message: "Template not found" });
@@ -59,19 +27,20 @@ const saveResumeData = async (req, res) => {
         const renderedTemplate = {
             templateName: requestedTemplate.templateName,
             id: requestedTemplate.id,
-            content: await ejs.renderFile(path.join(templatesDir, requestedTemplate.file), { user: resumeData })
+            content: await ejs.renderFile(path.join(templatesDir, requestedTemplate.file), { user: newResume })
         };
 
-        res.json({
+        res.status(201).json({
             success: true,
+            message: "Resume saved and template rendered successfully!",
+            data: newResume,
             template: renderedTemplate
         });
     } catch (error) {
-        console.error("Error rendering template:", error);
-        res.status(500).json({ error: "Internal server error" });
+        console.error("Error:", error);
+        res.status(500).json({ success: false, message: "Failed to save resume or render template", error: error.message });
     }
 };
-
 
 
 const sendResumeImages = async (req, res) => {
@@ -126,4 +95,4 @@ const saveResumeDataUser = async (req, res) => {
 };
 
 
-  module.exports ={saveResumeData,sendResumeTemplates,sendResumeImages,saveResumeDataUser}
+  module.exports ={saveResumeData,sendResumeImages,saveResumeDataUser}
