@@ -7,7 +7,6 @@ const saveResumeData = async (req, res) => {
     try {
         const resumeData = req.body;
 
-
         const newResume = new Resume(resumeData);
         await newResume.save();
 
@@ -27,7 +26,7 @@ const saveResumeData = async (req, res) => {
         const renderedTemplate = {
             templateName: requestedTemplate.templateName,
             id: requestedTemplate.id,
-            content: await ejs.renderFile(path.join(templatesDir, requestedTemplate.file), { user: newResume })
+            content: await ejs.renderFile(path.join(templatesDir, requestedTemplate.file), { user: resumeData })
         };
 
         res.status(201).json({

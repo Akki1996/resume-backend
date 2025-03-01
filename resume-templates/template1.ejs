@@ -41,6 +41,7 @@
             <h2>Professional Experience</h2>
             <% user.professionalExperience.forEach(exp => { %>
                 <h3><%= exp.company %> - <%= exp.occupation %></h3>
+                <p><strong>Duration:</strong> <%= new Date(exp.doj).toLocaleDateString() %> - <%= new Date(exp.dor).toLocaleDateString() %></p>
                 <% exp.projects.forEach(proj => { %>
                     <p><strong><%= proj.name %>:</strong> <%= proj.description %></p>
                 <% }) %>
@@ -51,6 +52,7 @@
             <h2>Education</h2>
             <% user.education.forEach(edu => { %>
                 <p><strong><%= edu.institute %></strong> - <%= edu.degree %> in <%= edu.fieldOfStudy %> (CGPA: <%= edu.cgpa %>)</p>
+                <p><strong>Duration:</strong> <%= new Date(edu.startDate).toLocaleDateString() %> - <%= new Date(edu.endDate).toLocaleDateString() %></p>
             <% }) %>
         </div>
 
