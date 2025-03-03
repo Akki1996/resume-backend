@@ -21,6 +21,14 @@
             margin: auto;
         }
         h1, h2 { color: #2c3e50; }
+        h3 { 
+            font-size: 1.2em; 
+            margin: 10px 0; 
+            padding: 5px 0; 
+            width: 100%; 
+            height: auto; 
+            border-bottom: 1px solid #ccc; 
+        }
         ul { list-style: none; padding: 0; }
         .section { margin-bottom: 20px; }
         hr { border: 1px solid #000; margin: 10px 0; }
@@ -54,6 +62,8 @@
             border-radius: 3px;
             font-size: 1rem;
         }
+
+        .education, .skills, .certifications, .professional-experience, .achievements { margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -63,7 +73,7 @@
             <p><%= user.personalDetails.email %> | <%= user.personalDetails.phone %> | <%= user.personalDetails.address %></p>
         </div>
         <hr>
-        <div class="section">
+        <div class="section skills">
             <h2>Skills</h2>
             <ul class="skills-list">
                 <% user.skills.skills.forEach(skill => { %>
@@ -72,7 +82,7 @@
             </ul>
         </div>
         <hr>
-        <div class="section">
+        <div class="section certifications">
             <h2>Certifications</h2>
             <ul class="certifications-list">
                 <% user.skills.certifications.forEach(cert => { %>
@@ -81,10 +91,10 @@
             </ul>
         </div>
         <hr>
-        <div class="section">
+        <div class="section professional-experience">
             <h2>Professional Experience</h2>
             <% user.professionalExperience.forEach(exp => { %>
-                <p><strong><%= exp.company %> - <%= exp.occupation %></strong></p>
+                <h3><%= exp.company %> - <%= exp.occupation %></h3>
                 <p><%= new Date(exp.doj).toLocaleDateString() %> - <%= new Date(exp.dor).toLocaleDateString() %></p>
                 <% exp.projects.forEach(proj => { %>
                     <p><strong><%= proj.name %>:</strong> <%= proj.description %></p>
@@ -92,7 +102,7 @@
             <% }) %>
         </div>
         <hr>
-        <div class="section">
+        <div class="section education">
             <h2>Education</h2>
             <% user.education.forEach(edu => { %>
                 <p><strong><%= edu.institute %></strong></p>
@@ -101,7 +111,7 @@
             <% }) %>
         </div>
         <hr>
-        <div class="section">
+        <div class="section achievements">
             <h2>Achievements</h2>
             <p><%= user.skills.achievements %></p>
         </div>

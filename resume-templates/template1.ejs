@@ -8,8 +8,17 @@
         body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; margin: 0; padding: 0; }
         .resume { width: 100%; height: 100%; background: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
         h1, h2 { color: #2c3e50; }
+        h3 { 
+            font-size: 1.2em; 
+            margin: 10px 0; 
+            padding: 5px 0; 
+            width: 100%; 
+            height: auto; 
+            border-bottom: 1px solid #ccc; 
+        }
         ul { list-style: none; padding: 0; }
         .section { margin-bottom: 20px; }
+        .education, .skills, .certifications, .professional-experience, .achievements { margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -19,7 +28,7 @@
         <p>Phone: <%= user.personalDetails.phone %></p>
         <p>Address: <%= user.personalDetails.address %></p>
 
-        <div class="section">
+        <div class="section skills">
             <h2>Skills</h2>
             <ul>
                 <% user.skills.skills.forEach(skill => { %>
@@ -28,7 +37,7 @@
             </ul>
         </div>
 
-        <div class="section">
+        <div class="section certifications">
             <h2>Certifications</h2>
             <ul>
                 <% user.skills.certifications.forEach(cert => { %>
@@ -37,7 +46,7 @@
             </ul>
         </div>
 
-        <div class="section">
+        <div class="section professional-experience">
             <h2>Professional Experience</h2>
             <% user.professionalExperience.forEach(exp => { %>
                 <h3><%= exp.company %> - <%= exp.occupation %></h3>
@@ -48,7 +57,7 @@
             <% }) %>
         </div>
 
-        <div class="section">
+        <div class="section education">
             <h2>Education</h2>
             <% user.education.forEach(edu => { %>
                 <p><strong><%= edu.institute %></strong> - <%= edu.degree %> in <%= edu.fieldOfStudy %> (CGPA: <%= edu.cgpa %>)</p>
@@ -56,7 +65,7 @@
             <% }) %>
         </div>
 
-        <div class="section">
+        <div class="section achievements">
             <h2>Achievements</h2>
             <p><%= user.skills.achievements %></p>
         </div>

@@ -2,6 +2,10 @@ const Resume = require("../models/Resume");
 const UserResume = require("../models/UserResumes");
 const ejs = require("ejs");
 const path = require("path");
+const axios = require('axios');
+
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_API_KEY = 'AIzaSyAMDDSk3PrNWuUyg0AABuceG4SCqUOedhU'; // Replace with your Gemini API key
 
 const saveResumeData = async (req, res) => {
     try {
@@ -93,5 +97,40 @@ const saveResumeDataUser = async (req, res) => {
     }
 };
 
+const changeTextWithAI = async (req, res) => {
+    const { description, sectionType } = req.body;
 
-  module.exports ={saveResumeData,sendResumeImages,saveResumeDataUser}
+    try {
+        if (!description || !sectionType) {
+            return res.status(400).json({ error: 'Description and sectionType are required' });
+        }
+
+        const prompt = `Revise the following ${sectionType} to be ATS-friendly, concise, and impactful for a resume. Keep it the same length and return only the revised version without explanations or alternatives: "${description}"`;
+
+        const response = await axios.post(
+            `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
+            {
+                contents: [{ parts: [{ text: prompt }] }]
+            },
+            {
+                headers: { 'Content-Type': 'application/json' }
+            }
+        );
+
+        let optimizedDescription = response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+        if (!optimizedDescription) {
+            return res.status(500).json({ error: "Failed to generate optimized text" });
+        }
+        optimizedDescription = optimizedDescription.split("\n")[0];
+
+        res.json({ optimizedDescription });
+
+    } catch (error) {
+        console.error("Error processing Gemini API request:", error);
+        res.status(500).json({ error: "An error occurred while processing your request." });
+    }
+};
+
+
+  module.exports ={saveResumeData,sendResumeImages,saveResumeDataUser,changeTextWithAI}
