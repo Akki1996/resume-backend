@@ -147,5 +147,37 @@ const changeTextWithAI = async (req, res) => {
     }
 };
 
+const getAllUserTemplates = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
 
-  module.exports ={saveResumeData,sendResumeImages,saveResumeDataUser,changeTextWithAI}
+        if (!token) {
+            return res.status(401).json({ success: false, message: "No token provided" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user_id = decoded.user_id;
+
+        if (!user_id) {
+            return res.status(400).json({ success: false, message: "User ID not found in token" });
+        }
+
+        const userData = await UserResume.find({ user_id });
+
+        if (!userData || userData.length === 0) {
+            return res.status(404).json({ success: false, message: "No data found for this user" });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "User data retrieved successfully",
+            data: userData
+        });
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch user data", error: error.message });
+    }
+};
+
+
+  module.exports ={saveResumeData,sendResumeImages,saveResumeDataUser,changeTextWithAI,getAllUserTemplates}
