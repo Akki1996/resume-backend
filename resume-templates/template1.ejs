@@ -95,7 +95,7 @@
                 <h3><%= exp.company %> - <%= exp.occupation %></h3>
                 <p><strong>Duration:</strong> <%= new Date(exp.doj).toLocaleDateString() %> - <%= new Date(exp.dor).toLocaleDateString() %></p>
                 <% exp.projects.forEach(proj => { %>
-                    <p><strong><%= proj.name %>:</strong> <%= proj.description %></p>
+                    <p class="project"><strong><%= proj.name %>:</strong> <%= proj.description %></p>
                 <% }) %>
             <% }) %>
         </div>
@@ -110,7 +110,7 @@
 
         <div class="section achievements">
             <h2>Achievements</h2>
-            <p><%= user.skills.achievements %></p>
+            <p class="achievement"><%= user.skills.achievements %></p>
         </div>
     </div>
 </body>

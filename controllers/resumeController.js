@@ -82,8 +82,10 @@ const saveResumeDataUser = async (req, res) => {
             return res.status(401).json({ success: false, message: "No token provided" });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user_id = decoded.user_id; 
+        const decoded = jwt.verify(token, "abcd123");
+       
+        const user_id = parseInt(decoded.user_id); 
+      
 
         if (!user_id) {
             return res.status(400).json({ success: false, message: "User ID not found in token" });
@@ -94,6 +96,8 @@ const saveResumeDataUser = async (req, res) => {
         if (!template) {
             return res.status(400).json({ success: false, message: "Template data is required" });
         }
+
+      
 
         const updatedResume = await UserResume.findOneAndUpdate(
             { user_id },
@@ -155,8 +159,8 @@ const getAllUserTemplates = async (req, res) => {
             return res.status(401).json({ success: false, message: "No token provided" });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user_id = decoded.user_id;
+        const decoded = jwt.verify(token, "abcd123");
+        const user_id = parseInt(decoded.user_id);
 
         if (!user_id) {
             return res.status(400).json({ success: false, message: "User ID not found in token" });
