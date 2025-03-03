@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Resume</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
             color: #333;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
         }
         .resume {
             width: 210mm;
@@ -20,50 +22,73 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin: auto;
         }
-        h1, h2 { color: #2c3e50; }
-        h3 { 
-            font-size: 1.2em; 
-            margin: 10px 0; 
-            padding: 5px 0; 
-            width: 100%; 
-            height: auto; 
-            border-bottom: 1px solid #ccc; 
-        }
-        ul { list-style: none; padding: 0; }
-        .section { margin-bottom: 20px; }
-        hr { border: 1px solid #000; margin: 10px 0; }
 
+        /* Typography */
+        h1 { 
+            font-size: 2.5rem; 
+            color: #2c3e50; 
+            margin-bottom: 0.5rem; 
+        }
+        h2 { 
+            font-size: 2rem; 
+            color: #2c3e50; 
+            margin-bottom: 0.75rem; 
+            border-bottom: 2px solid #2c3e50; 
+            padding-bottom: 0.25rem; 
+        }
+        h3 { 
+            font-size: 1.5rem; 
+            color: #2c3e50; 
+            margin: 1rem 0 0.5rem 0; 
+        }
+        p { 
+            font-size: 1rem; 
+            color: #555; 
+            margin: 0.5rem 0; 
+        }
+        ul { 
+            list-style: none; 
+            padding: 0; 
+        }
+        li { 
+            font-size: 1rem; 
+            color: #555; 
+            margin: 0.5rem 0; 
+        }
+
+        /* Section Styles */
+        .section { 
+            margin-bottom: 1.5rem; 
+        }
         .header {
             text-align: center;
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
         }
-
         .header h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
-
         .header p {
             font-size: 1rem;
             color: #555;
         }
-
         .skills-list, .certifications-list {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-
         .skills-list li, .certifications-list li {
             background-color: #f0f0f0;
             padding: 0.5rem 1rem;
             border-radius: 3px;
             font-size: 1rem;
         }
-
-        .education, .skills, .certifications, .professional-experience, .achievements { margin-bottom: 20px; }
+        hr { 
+            border: 1px solid #000; 
+            margin: 10px 0; 
+        }
     </style>
 </head>
 <body>
