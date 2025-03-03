@@ -38,7 +38,7 @@ const LoginUser = async (req, res) => {
       message: "Password is not correct",
     });
   }
-  const token = jwt.sign({ userId: userExist._id }, SECRET_KEY, {
+  const token = jwt.sign({ user_id: userExist._id }, SECRET_KEY, {
     expiresIn: "1h",
   });
   return res.status(200).json({
