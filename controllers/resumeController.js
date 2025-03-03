@@ -3,6 +3,7 @@ const UserResume = require("../models/UserResumes");
 const ejs = require("ejs");
 const path = require("path");
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 const GEMINI_API_KEY = 'AIzaSyAMDDSk3PrNWuUyg0AABuceG4SCqUOedhU'; // Replace with your Gemini API key
@@ -75,10 +76,23 @@ const sendResumeImages = async (req, res) => {
 
 const saveResumeDataUser = async (req, res) => {
     try {
-        const { user_id, template } = req.body;
+        const token = req.headers.authorization?.split(' ')[1]; 
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: "No token provided" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user_id = decoded.user_id; 
 
         if (!user_id) {
-            return res.status(400).json({ success: false, message: "User ID is required" });
+            return res.status(400).json({ success: false, message: "User ID not found in token" });
+        }
+
+        const { template } = req.body;
+
+        if (!template) {
+            return res.status(400).json({ success: false, message: "Template data is required" });
         }
 
         const updatedResume = await UserResume.findOneAndUpdate(
@@ -93,6 +107,7 @@ const saveResumeDataUser = async (req, res) => {
             data: updatedResume
         });
     } catch (error) {
+        console.error("Error saving resume data:", error);
         res.status(500).json({ success: false, message: "Failed to save resume", error: error.message });
     }
 };
