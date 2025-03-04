@@ -84,7 +84,7 @@ const saveResumeDataUser = async (req, res) => {
 
         const decoded = jwt.verify(token, "abcd123");
        
-        const user_id = parseInt(decoded.user_id); 
+        const user_id = decoded.user_id; 
       
 
         if (!user_id) {
@@ -160,13 +160,15 @@ const getAllUserTemplates = async (req, res) => {
         }
 
         const decoded = jwt.verify(token, "abcd123");
-        const user_id = parseInt(decoded.user_id);
 
-        if (!user_id) {
+        if (!decoded.user_id) {
             return res.status(400).json({ success: false, message: "User ID not found in token" });
         }
 
-        const userData = await UserResume.find({ user_id });
+        const user_id = decoded.user_id; 
+
+    
+        const userData = await UserResume.find({user_id: user_id });
 
         if (!userData || userData.length === 0) {
             return res.status(404).json({ success: false, message: "No data found for this user" });
